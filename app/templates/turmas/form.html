@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Editar' if turma else 'Nova' }} Turma{% endblock %}
+{% block content %}
+<h2>{{ 'Editar' if turma else 'Nova' }} Turma</h2>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Nome</label>
+    <input name="nome" class="form-control" required value="{{ turma.nome if turma else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Turno</label>
+    <input name="turno" class="form-control" required value="{{ turma.turno if turma else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Ano</label>
+    <input name="ano" class="form-control" required value="{{ turma.ano if turma else '' }}">
+  </div>
+  <button class="btn btn-success">Salvar</button>
+  <a class="btn btn-secondary" href="{{ url_for('turmas.lista') }}">Voltar</a>
+</form>
+{% endblock %}

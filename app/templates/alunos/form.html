@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Editar' if aluno else 'Novo' }} Aluno{% endblock %}
+{% block content %}
+<h2>{{ 'Editar' if aluno else 'Novo' }} Aluno</h2>
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label class="form-label">Nome</label>
+    <input name="nome" class="form-control" required value="{{ aluno.nome if aluno else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">E-mail</label>
+    <input name="email" type="email" class="form-control" required value="{{ aluno.email if aluno else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Matrícula</label>
+    <input name="matricula" class="form-control" required value="{{ aluno.matricula if aluno else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Documento (PDF/Imagem)</label>
+    <input type="file" name="documento" class="form-control">
+    {% if aluno and aluno.documento %}
+      <small>Atual: {{ aluno.documento }}</small>
+    {% endif %}
+  </div>
+  <button class="btn btn-success">Salvar</button>
+  <a class="btn btn-secondary" href="{{ url_for('alunos.lista') }}">Voltar</a>
+</form>
+{% endblock %}

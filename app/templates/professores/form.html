@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Editar' if professor else 'Novo' }} Professor{% endblock %}
+{% block content %}
+<h2>{{ 'Editar' if professor else 'Novo' }} Professor</h2>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Nome</label>
+    <input name="nome" class="form-control" required value="{{ professor.nome if professor else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">E-mail</label>
+    <input name="email" type="email" class="form-control" required value="{{ professor.email if professor else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Área</label>
+    <input name="area" class="form-control" required value="{{ professor.area if professor else '' }}">
+  </div>
+  <button class="btn btn-success">Salvar</button>
+  <a class="btn btn-secondary" href="{{ url_for('professores.lista') }}">Voltar</a>
+</form>
+{% endblock %}
