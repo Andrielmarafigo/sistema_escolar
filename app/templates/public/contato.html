@@ -1,6 +1,30 @@
-{% extends 'base.html' %}
-{% block title %}Contato{% endblock %}
+{% extends "base.html" %}
 {% block content %}
-  <h2>Contato</h2>
-  <p>Email: secretaria@escola.local</p>
+
+<section class="contato-container">
+  <div class="form-card">
+    <h2>Entre em Contato</h2>
+    <p>Tem dúvidas, sugestões ou deseja falar conosco? Preencha o formulário abaixo 👇</p>
+
+    <form action="{{ url_for('contato.enviar') }}" method="post">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="mensagem" class="form-label">Mensagem</label>
+        <textarea class="form-control" id="mensagem" name="mensagem" rows="4" placeholder="Digite sua mensagem..." required></textarea>
+      </div>
+
+      <button type="submit">Enviar Mensagem</button>
+    </form>
+  </div>
+</section>
+
 {% endblock %}

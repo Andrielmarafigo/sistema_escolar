@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Alunos{% endblock %}
+{% block content %}
+<div class="container mt-3">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Alunos</h2>
+    <a href="{{ url_for('alunos.novo') }}" class="btn btn-primary">+ Novo Aluno</a>
+  </div>
+  <hr>
+
+  {% if alunos %}
+  <table class="table table-striped align-middle">
+    <thead class="table-primary">
+      <tr>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Email</th>
+        <th style="width:180px;">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in alunos %}
+      <tr>
+        <td>{{ a.nome }}</td>
+        <td>{{ a.idade }}</td>
+        <td>{{ a.email }}</td>
+        <td>
+          <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('alunos.editar', id=a.id) }}">Editar</a>
+          <form action="{{ url_for('alunos.excluir', id=a.id) }}" method="POST" style="display:inline-block" onsubmit="return confirm('Excluir este aluno?');">
+            <button class="btn btn-sm btn-outline-danger" type="submit">Excluir</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="alert alert-info">Nenhum aluno cadastrado ainda.</div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -27,6 +27,9 @@ def create_app(config_object=DevConfig):
     from .controllers.professores import bp as professores_bp
     from .controllers.turmas import bp as turmas_bp
     from .controllers.api import bp as api_bp
+    from .controllers.contato import bp as contato_bp
+
+
 
     app.register_blueprint(public_bp)
     app.register_blueprint(auth_bp, url_prefix="/auth")
@@ -34,5 +37,6 @@ def create_app(config_object=DevConfig):
     app.register_blueprint(professores_bp, url_prefix="/professores")
     app.register_blueprint(turmas_bp, url_prefix="/turmas")
     app.register_blueprint(api_bp, url_prefix="/api")
+    app.register_blueprint(contato_bp)
 
     return app

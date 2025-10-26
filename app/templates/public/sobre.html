@@ -1,6 +1,41 @@
-{% extends 'base.html' %}
-{% block title %}Sobre{% endblock %}
+{% extends "base.html" %}
+{% block title %}Sobre - Sistema Escolar{% endblock %}
 {% block content %}
-  <h2>Sobre</h2>
-  <p>Aplicação.</p>
+
+<section class="sobre-container">
+  <div class="container text-center py-5">
+    <h2 class="titulo-sobre">Sobre o Sistema Escolar</h2>
+    <p class="texto-intro">
+      O <strong>Sistema Escolar</strong> foi desenvolvido para tornar o gerenciamento acadêmico mais simples, eficiente e acessível.
+      Nosso objetivo é oferecer uma ferramenta intuitiva para professores, alunos e administradores, centralizando as informações
+      de forma moderna e segura.
+    </p>
+
+    <div class="row-sobre">
+      <div class="card-sobre">
+        <img src="{{ url_for('static', filename='img/missao.png') }}" alt="Missão">
+        <h5>Missão</h5>
+        <p>Facilitar a gestão escolar através da tecnologia, promovendo agilidade, transparência e inovação no ambiente educacional.</p>
+      </div>
+
+      <div class="card-sobre">
+        <img src="{{ url_for('static', filename='img/equipe.png') }}" alt="Equipe">
+        <h5>Equipe</h5>
+        <p>Desenvolvido por estudantes de Engenharia de Software comprometidos em transformar a experiência digital nas instituições de ensino.</p>
+      </div>
+
+      <div class="card-sobre">
+        <img src="{{ url_for('static', filename='img/seguranca.png') }}" alt="Segurança">
+        <h5>Segurança</h5>
+        <p>Garantimos a proteção dos dados com autenticação segura, criptografia e boas práticas de privacidade.</p>
+      </div>
+    </div>
+
+    <!-- Centralização do botão -->
+    <div class="botao-centro">
+      <a href="{{ url_for('public.contato') }}" class="btn-grad mt-4">Fale Conosco</a>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

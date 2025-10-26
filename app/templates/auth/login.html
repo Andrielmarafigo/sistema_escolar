@@ -1,20 +1,42 @@
-{% extends 'base.html' %}
-{% block title %}Login{% endblock %}
+{% extends "base.html" %}
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-  <div class="mb-3">
-    <label class="form-label">E-mail</label>
-    <input name="email" class="form-control" required>
+<section class="login-page">
+  <div class="login-box">
+    <!-- Coluna esquerda -->
+    <div class="login-form">
+      <h2>Login</h2>
+      <form method="POST" action="{{ url_for('auth.login') }}">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+
+        <label for="senha">Senha</label>
+        <div class="password-container">
+          <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+          <i class="fa fa-eye" id="togglePassword"></i>
+        </div>
+
+        <button type="submit" class="btn-login">Entrar</button>
+
+        <a href="#" class="forgot">Esqueceu a senha?</a>
+      </form>
+    </div>
+
+    <!-- Coluna direita -->
+    <div class="login-illustration">
+      <img src="{{ url_for('static', filename='img/login_ilustracao.png') }}" alt="Ilustração escolar">
+    </div>
   </div>
-  <div class="mb-3">
-    <label class="form-label">Senha</label>
-    <input name="senha" type="password" class="form-control" required>
-  </div>
-  <div class="form-check mb-3">
-    <input class="form-check-input" type="checkbox" name="remember" id="remember">
-    <label class="form-check-label" for="remember">Lembrar-me</label>
-  </div>
-  <button class="btn btn-primary">Entrar</button>
-</form>
+</section>
+
+<!-- Script deve ficar fora -->
+<script>
+const togglePassword = document.querySelector("#togglePassword");
+const senha = document.querySelector("#senha");
+
+togglePassword.addEventListener("click", () => {
+  const type = senha.getAttribute("type") === "password" ? "text" : "password";
+  senha.setAttribute("type", type);
+  togglePassword.classList.toggle("fa-eye-slash");
+});
+</script>
 {% endblock %}
