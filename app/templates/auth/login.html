@@ -1,34 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="login-page">
-  <div class="login-box">
-    <!-- Coluna esquerda -->
+<section class="login-container">
+  <div class="login-card">
+    <!-- Lado Esquerdo -->
     <div class="login-form">
-      <h2>Login</h2>
-      <form method="POST" action="{{ url_for('auth.login') }}">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+      <h2>Bem-vindo de volta 👋</h2>
+      <p class="subtitle">Acesse sua conta para continuar no <strong>Sistema Escolar</strong></p>
 
-        <label for="senha">Senha</label>
-        <div class="password-container">
-          <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
-          <i class="fa fa-eye" id="togglePassword"></i>
+      <form method="POST" action="{{ url_for('auth.login') }}">
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+        </div>
+
+        <div class="input-group">
+          <label for="senha">Senha</label>
+          <div class="password-field">
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+            <i class="fa fa-eye" id="togglePassword"></i>
+          </div>
+        </div>
+
+        <div class="extras">
+          <label><input type="checkbox"> Lembrar-me</label>
+          <a href="{{ url_for('auth.forgot_password') }}" class="forgot">Esqueceu a senha?</a>
         </div>
 
         <button type="submit" class="btn-login">Entrar</button>
 
-        <a href="#" class="forgot">Esqueceu a senha?</a>
+        <p class="register-link">Novo por aqui? <a href="{{ url_for('auth.register') }}">Crie sua conta</a></p>
       </form>
     </div>
 
-    <!-- Coluna direita -->
-    <div class="login-illustration">
-      <img src="{{ url_for('static', filename='img/login_ilustracao.png') }}" alt="Ilustração escolar">
+    <!-- Lado Direito -->
+    <div class="login-image">
+      <img src="{{ url_for('static', filename='img/login_ilustracao.png') }}" alt="Ilustração escolar moderna">
     </div>
   </div>
 </section>
-
-<!-- Script deve ficar fora -->
 <script>
 const togglePassword = document.querySelector("#togglePassword");
 const senha = document.querySelector("#senha");

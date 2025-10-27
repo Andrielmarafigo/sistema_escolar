@@ -87,146 +87,237 @@ html, body {
 }
 
 
-/* === LOGIN PAGE === */
-.login-page {
+/* login */
+
+/* ====== Fundo geral ====== */
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f5f8ff;
+  background: linear-gradient(135deg, #001f4d, #0057b8, #00aaff);
   font-family: "Poppins", sans-serif;
 }
 
-.login-box {
+/* ====== Card central ====== */
+.login-card {
   display: flex;
-  background: #fff;
+  background: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  width: 900px;
+  width: 940px;
   max-width: 95%;
+  transition: all 0.3s ease;
+  animation: fadeIn 1s ease;
 }
 
-/* Coluna do formulário */
+.login-card:hover {
+  box-shadow: 0 20px 45px rgba(0, 91, 255, 0.25);
+  transform: scale(1.01);
+}
+
+/* ====== Lado Esquerdo (formulário) ====== */
 .login-form {
   flex: 1;
-  padding: 60px 50px;
+  padding: 65px 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .login-form h2 {
-  color: #1d3557;
-  font-size: 2rem;
-  margin-bottom: 25px;
-  font-weight: 700;
+  font-size: 2.4rem;
+  color: #002b5b;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
 }
 
-.login-form label {
+.subtitle {
+  color: #5f6f81;
+  font-size: 1rem;
+  margin-bottom: 45px;
+  line-height: 1.6;
+}
+
+/* ====== Campos ====== */
+.input-group {
+  margin-bottom: 35px;
+}
+
+.input-group label {
   display: block;
-  font-weight: 500;
-  color: #444;
-  margin-bottom: 6px;
-  font-size: 0.95rem;
-}
-
-.login-form input {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1.5px solid #ccc;
-  border-radius: 8px;
-  margin-bottom: 18px;
-  font-size: 1rem;
-  transition: border 0.3s ease;
-}
-
-.login-form input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Campo de senha com ícone */
-.password-container {
-  position: relative;
-}
-
-.password-container i {
-  position: absolute;
-  right: 12px;
-  top: 13px;
-  color: #777;
-  cursor: pointer;
-}
-
-.password-container i:hover {
-  color: #007bff;
-}
-
-/* Botão */
-.btn-login {
-  width: 100%;
-  background: #007bff;
-  color: #fff;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
   font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1.5px solid #ccd3da;
   font-size: 1rem;
-  cursor: pointer;
+  color: #222;
+  background-color: #f9fbff;
   transition: all 0.3s ease;
 }
 
-.btn-login:hover {
-  background: #0056b3;
-  transform: scale(1.03);
+.input-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.35);
+  background-color: #fff;
+  outline: none;
 }
 
-/* Link de esqueci a senha */
+/* ====== Campo de senha com ícone ====== */
+.password-field {
+  position: relative;
+  margin-top: 28px; /* 🔹 Espaço real entre e-mail e senha */
+}
+
+.password-field input {
+  padding: 14px 45px 14px 16px;
+}
+
+.password-field i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.password-field i:hover {
+  color: #007bff;
+}
+
+/* ====== Extras ====== */
+.extras {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.extras label {
+  color: #333;
+}
+
 .forgot {
-  display: block;
-  margin-top: 12px;
-  text-align: center;
   color: #007bff;
   text-decoration: none;
-  font-size: 0.9rem;
+  transition: color 0.3s;
 }
 
 .forgot:hover {
+  color: #0056b3;
+}
+
+/* ====== Botão ====== */
+.btn-login {
+  width: 100%;
+  background: linear-gradient(90deg, #0066ff, #00b8ff);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 18px rgba(0, 123, 255, 0.3);
+}
+
+.btn-login:hover {
+  background: linear-gradient(90deg, #0051cc, #0099e6);
+  transform: scale(1.03);
+  box-shadow: 0 10px 22px rgba(0, 91, 255, 0.4);
+}
+
+/* ====== Link de cadastro ====== */
+.register-link {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.register-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover {
   text-decoration: underline;
 }
 
-/* Coluna da imagem */
-.login-illustration {
+/* ====== Lado Direito (imagem) ====== */
+.login-image {
   flex: 1;
-  background: #f8fbff;
+  background: linear-gradient(120deg, #007bff, #00bfff);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px;
 }
 
-.login-illustration img {
-  width: 100%;
-  max-width: 380px;
+.login-image img {
+  width: 100%;            
+  height: auto;             
+  max-width: 480px;         
+  object-fit: contain;      
+  animation: float 3s ease-in-out infinite;
 }
 
-/* Responsivo */
-@media (max-width: 800px) {
-  .login-box {
+/* ====== Animações ====== */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====== Responsividade ====== */
+@media (max-width: 850px) {
+  .login-card {
     flex-direction: column;
-    width: 95%;
-    height: auto;
+    width: 90%;
   }
 
-  .login-illustration {
+  .login-image {
     display: none;
   }
 
   .login-form {
     padding: 40px 30px;
   }
+
+  .login-form h2 {
+    font-size: 2rem;
+  }
 }
+
 
 /* ======= SOBRE ======= */
 .sobre-container {
