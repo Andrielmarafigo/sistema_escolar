@@ -1,0 +1,87 @@
+{% extends 'turmas/turmas_base.html' %}
+{% block title %}Turmas{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/turmas.css') }}">
+
+<section class="turmas-page">
+  <div class="turmas-wrapper">
+
+    <!-- Cabeçalho -->
+    <div class="turmas-header">
+      <div class="turmas-titles">
+        <h1>
+          Turmas
+          <span class="badge">{{ turmas|length }} cadastradas</span>
+        </h1>
+        <p>Gerencie as turmas, turnos e anos letivos da escola.</p>
+      </div>
+
+      <a href="{{ url_for('turmas.nova') }}" class="btn-nova-turma">
+        + Nova Turma
+      </a>
+    </div>
+
+    <!-- Card com filtros e tabela -->
+    <div class="turmas-card">
+
+      <!-- Filtros -->
+      <form class="turmas-filtros" method="GET">
+        <div class="filtro-bloco">
+          <label class="filtro-label">Buscar por nome</label>
+          <input
+            type="text"
+            class="filtro-input"
+            name="q"
+            placeholder="Ex: 3ºA / Infantil / 9ºB..."
+            value="{{ q }}">
+        </div>
+
+        <button class="btn-filtrar" type="submit">Filtrar</button>
+      </form>
+
+      {% if turmas %}
+      <!-- Tabela -->
+      <div class="tabela-wrapper">
+        <table class="tabela-turmas">
+          <thead>
+            <tr>
+              <th>Turma</th>
+              <th>Turno</th>
+              <th>Ano letivo</th>
+              <th style="text-align:right;">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in turmas %}
+            <tr>
+              <td class="col-turma">{{ t.nome }}</td>
+              <td class="col-turno">{{ t.turno }}</td>
+              <td class="col-ano">{{ t.ano }}</td>
+              <td class="td-acoes">
+                <a class="btn-acao" href="{{ url_for('turmas.editar', id=t.id) }}">Editar</a>
+                <form
+                  action="{{ url_for('turmas.excluir', id=t.id) }}"
+                  method="POST"
+                  style="display:inline-block"
+                  onsubmit="return confirm('Excluir esta turma?');">
+                  <button class="btn-acao excluir" type="submit">Excluir</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="sem-turmas">
+        <strong>Nenhuma turma cadastrada ainda.</strong>
+        Cadastre uma nova turma para começar o controle de turmas da escola.
+      </div>
+      {% endif %}
+
+    </div><!-- /turmas-card -->
+
+  </div>
+</section>
+{% endblock %}

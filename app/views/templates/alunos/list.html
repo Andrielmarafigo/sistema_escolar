@@ -1,0 +1,66 @@
+{% extends 'alunos/alunos_base.html' %}
+
+{% block title %}Alunos{% endblock %}
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/alunos.css') }}?v=1">
+{% endblock %}
+{% block content %}
+
+<section class="alunos-container">
+  <div class="header-section">
+    <h1 class="titulo">👩‍🎓 Lista de Alunos</h1>
+
+    <div class="actions">
+      <form class="search-form" method="GET">
+        <input type="text" name="q" placeholder="Buscar por nome..." value="{{ q }}">
+        <button type="submit" class="btn-search">🔍 Buscar</button>
+      </form>
+
+      <a href="{{ url_for('alunos.novo') }}" class="btn-add">➕ Novo aluno</a>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <table class="table-alunos">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Matrícula</th>
+          <th>Documento</th>
+          <th class="acoes">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if alunos %}
+          {% for a in alunos %}
+            <tr>
+              <td>{{ a.id }}</td>
+              <td>{{ a.nome }}</td>
+              <td>{{ a.email }}</td>
+              <td>{{ a.matricula }}</td>
+              <td>
+                {% if a.documento %}
+                  <a href="{{ url_for('alunos.download', nome_arquivo=a.documento) }}" class="link-doc">📄 Baixar</a>
+                {% else %}
+                  <span class="sem-doc">—</span>
+                {% endif %}
+              </td>
+              <td class="acoes">
+                <a href="{{ url_for('alunos.editar', id=a.id) }}" class="btn-edit">✏️</a>
+                <form method="POST" action="{{ url_for('alunos.excluir', id=a.id) }}" style="display:inline" onsubmit="return confirm('Deseja realmente excluir este aluno?')">
+                  <button class="btn-delete" type="submit">🗑️</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr><td colspan="6" class="sem-registro">Nenhum aluno cadastrado.</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

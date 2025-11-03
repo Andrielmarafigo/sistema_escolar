@@ -2,21 +2,21 @@
 {% block content %}
 <section class="login-container">
   <div class="login-card">
-    <!-- Lado Esquerdo -->
+
     <div class="login-form">
       <h2>Bem-vindo de volta 👋</h2>
       <p class="subtitle">Acesse sua conta para continuar no <strong>Sistema Escolar</strong></p>
 
-      <form method="POST" action="{{ url_for('auth.login') }}">
+      <form id="loginForm" method="POST" action="{{ url_for('auth.login') }}">
         <div class="input-group">
           <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+          <input type="email" id="email" name="email" placeholder="Digite seu e-mail">
         </div>
 
         <div class="input-group">
           <label for="senha">Senha</label>
           <div class="password-field">
-            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
             <i class="fa fa-eye" id="togglePassword"></i>
           </div>
         </div>
@@ -32,13 +32,14 @@
       </form>
     </div>
 
-    <!-- Lado Direito -->
     <div class="login-image">
       <img src="{{ url_for('static', filename='img/login_ilustracao.png') }}" alt="Ilustração escolar moderna">
     </div>
   </div>
 </section>
+
 <script>
+// Mostrar/ocultar senha
 const togglePassword = document.querySelector("#togglePassword");
 const senha = document.querySelector("#senha");
 
@@ -46,6 +47,17 @@ togglePassword.addEventListener("click", () => {
   const type = senha.getAttribute("type") === "password" ? "text" : "password";
   senha.setAttribute("type", type);
   togglePassword.classList.toggle("fa-eye-slash");
+});
+
+// Validação de segurança no front-end
+document.querySelector("#loginForm").addEventListener("submit", (e) => {
+  const email = document.querySelector("#email").value.trim();
+  const senha = document.querySelector("#senha").value.trim();
+
+  if (email === "" || senha === "") {
+    e.preventDefault();
+    alert("⚠️ E-mail e senha não podem estar vazios.");
+  }
 });
 </script>
 {% endblock %}

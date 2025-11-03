@@ -1,0 +1,60 @@
+{% extends 'professores/professores_base.html' %}
+{% block title %}Professores{% endblock %}
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/professores.css') }}?v=1">
+{% endblock %}
+{% block content %}
+
+<section class="professores-container">
+  <div class="professores-header">
+    <h1><i class="fa-solid fa-chalkboard-user"></i> Professores</h1>
+    <a href="{{ url_for('professores.novo') }}" class="btn-novo">
+      <i class="fa-solid fa-plus"></i> Novo Professor
+    </a>
+  </div>
+
+  <form class="search-bar" method="get">
+    <input type="text" name="q" value="{{ q }}" placeholder="Buscar por nome...">
+    <button type="submit"><i class="fa-solid fa-search"></i> Buscar</button>
+  </form>
+
+  {% if professores %}
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Disciplina</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in professores %}
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.nome }}</td>
+        <td>{{ p.email }}</td>
+        <td>{{ p.disciplina }}</td>
+        <td>
+          <a href="{{ url_for('professores.editar', id=p.id) }}" class="btn-action btn-edit">
+            <i class="fa-solid fa-pen"></i> Editar
+          </a>
+          <form method="post" action="{{ url_for('professores.excluir', id=p.id) }}" style="display:inline;" onsubmit="return confirm('Deseja realmente excluir este professor?')">
+            <button class="btn-action btn-delete" type="submit">
+              <i class="fa-solid fa-trash"></i> Excluir
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <div class="alert alert-info mt-3">
+      Nenhum professor cadastrado ainda.
+    </div>
+  {% endif %}
+</section>
+
+{% endblock %}

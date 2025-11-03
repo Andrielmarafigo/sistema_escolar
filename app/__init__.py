@@ -7,7 +7,7 @@ from .models.user import User
 
 def create_app(config_object=DevConfig):
     """Cria e configura a aplicação Flask."""
-    app = Flask(__name__, static_folder="static")
+    app = Flask(__name__, static_folder="static", template_folder="views/templates")
     app.config.from_object(config_object)
 
     # Garante que a pasta de uploads exista
