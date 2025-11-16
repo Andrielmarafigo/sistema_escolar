@@ -74,7 +74,7 @@ body {
 }
 
 .search-bar button {
-  background: #2196f3;
+  background: linear-gradient(135deg, #0d47a1, #42a5f5);
   color: white;
   border: none;
   border-radius: 6px;

@@ -60,7 +60,7 @@
 
 /* Botão Nova Turma */
 .btn-nova-turma {
-  background: linear-gradient(90deg, #0066ff 0%, #00b8ff 100%);
+  background: linear-gradient(135deg, #0d47a1, #42a5f5);
   border: none;
   border-radius: .75rem;
   color: #fff;
@@ -152,7 +152,7 @@
 }
 
 .btn-filtrar:hover {
-  background: #142a5e;
+  background: #1b3f94;
   box-shadow: 0 14px 28px rgba(20, 42, 94, .28);
   transform: translateY(-2px);
 }

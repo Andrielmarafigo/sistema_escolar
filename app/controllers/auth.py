@@ -18,7 +18,7 @@ def login():
 
         if user and user.check_password(senha):
             login_user(user, remember=remember)
-            return redirect(url_for("public.home"))
+            return redirect(url_for("alunos.lista"))
 
         flash("Credenciais inválidas.", "danger")
     return render_template("auth/login.html")
