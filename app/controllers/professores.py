@@ -13,7 +13,9 @@ def lista():
         items = Professor.query.filter(Professor.nome.ilike(f"%{q}%")).all()
     else:
         items = Professor.query.order_by(Professor.id.desc()).all()
+
     return render_template("professores/list.html", professores=items, q=q)
+
 
 @bp.route("/novo", methods=["GET","POST"])
 @login_required
@@ -27,6 +29,12 @@ def novo():
             flash("Preencha todos os campos.", "warning")
             return redirect(request.url)
 
+        # 🔥 Verifica se já existe professor com este e-mail
+        existente = Professor.query.filter_by(email=email).first()
+        if existente:
+            flash("Já existe um professor com esse e-mail.", "danger")
+            return redirect(request.url)
+
         p = Professor(nome=nome, email=email, area=area)
         db.session.add(p)
         db.session.commit()
@@ -35,6 +43,7 @@ def novo():
         return redirect(url_for("professores.lista"))
 
     return render_template("professores/form.html", professor=None)
+
 
 @bp.route("/<int:id>/editar", methods=["GET","POST"])
 @login_required
@@ -50,6 +59,12 @@ def editar(id):
             flash("Preencha todos os campos.", "warning")
             return redirect(request.url)
 
+        # 🔥 Verifica email duplicado com exceção do próprio professor
+        existente = Professor.query.filter(Professor.email == email, Professor.id != id).first()
+        if existente:
+            flash("Este e-mail já está sendo usado por outro professor.", "danger")
+            return redirect(request.url)
+
         p.nome = nome
         p.email = email
         p.area = area
@@ -60,6 +75,7 @@ def editar(id):
         return redirect(url_for("professores.lista"))
 
     return render_template("professores/form.html", professor=p)
+
 
 @bp.route("/<int:id>/excluir", methods=["POST"])
 @login_required
