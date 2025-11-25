@@ -14,12 +14,12 @@ def enviar():
     email = request.form.get("email")
     mensagem = request.form.get("mensagem")
 
-    # Validação básica
+   
     if not nome or not email or not mensagem:
         flash("Por favor, preencha todos os campos.", "warning")
         return redirect(url_for("contato.contato"))
 
-    # Cria um novo registro no banco
+    
     novo = Contato(nome=nome, email=email, mensagem=mensagem)
     db.session.add(novo)
     db.session.commit()

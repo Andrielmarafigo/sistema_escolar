@@ -7,13 +7,18 @@ import secrets
 
 bp = Blueprint("auth", __name__, template_folder="../templates/auth")
 
-# ===== LOGIN =====
+
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         senha = request.form.get("senha", "").strip()
         remember = bool(request.form.get("remember"))
+
+        if not email or not senha:
+            flash("E-mail e senha não podem estar vazios.", "warning")
+            return redirect(request.url)
+
         user = User.query.filter_by(email=email).first()
 
         if user and user.check_password(senha):
@@ -21,10 +26,12 @@ def login():
             return redirect(url_for("alunos.lista"))
 
         flash("Credenciais inválidas.", "danger")
+
     return render_template("auth/login.html")
 
 
-# ===== REGISTRO =====
+
+
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -51,7 +58,7 @@ def register():
     return render_template("auth/register.html")
 
 
-# ===== LOGOUT =====
+
 @bp.route("/logout")
 @login_required
 def logout():
@@ -59,7 +66,7 @@ def logout():
     return redirect(url_for("public.home"))
 
 
-# ===== ESQUECEU SENHA (com Flask-Mail) =====
+
 @bp.route("/forgot", methods=["GET", "POST"])
 def forgot_password():
     """Página para o usuário solicitar redefinição de senha."""
@@ -71,15 +78,15 @@ def forgot_password():
             flash("E-mail não encontrado.", "danger")
             return redirect(request.url)
 
-        # Gera um token único e salva
+        
         token = secrets.token_urlsafe(16)
         user.reset_token = token
         db.session.commit()
 
-        # Gera link de redefinição
+        
         reset_link = url_for("auth.reset_password", token=token, _external=True)
 
-        # Monta o e-mail com template HTML
+        
         msg = Message(
             subject="🔐 Redefinição de Senha - Sistema Escolar",
             recipients=[user.email],
@@ -109,10 +116,9 @@ def forgot_password():
     return render_template("auth/forgot_password.html")
 
 
-# ===== REDEFINIR SENHA =====
+
 @bp.route("/reset/<token>", methods=["GET", "POST"])
 def reset_password(token):
-    """Página para o usuário redefinir a senha com o token."""
     user = User.query.filter_by(reset_token=token).first()
 
     if not user:
@@ -122,9 +128,10 @@ def reset_password(token):
     if request.method == "POST":
         nova_senha = request.form.get("senha", "").strip()
 
-        if not nova_senha:
-            flash("Digite uma nova senha.", "warning")
-            return redirect(request.url)
+        for campo, valor in [("Senha", nova_senha)]:
+            if not valor:
+                flash(f"{campo} não pode estar vazia.", "warning")
+                return redirect(request.url)
 
         user.set_password(nova_senha)
         user.reset_token = None
@@ -134,3 +141,4 @@ def reset_password(token):
         return redirect(url_for("auth.login"))
 
     return render_template("auth/reset_password.html")
+

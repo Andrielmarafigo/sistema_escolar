@@ -29,7 +29,7 @@ def novo():
             flash("Preencha todos os campos.", "warning")
             return redirect(request.url)
 
-        # 🔥 Verifica se já existe professor com este e-mail
+        
         existente = Professor.query.filter_by(email=email).first()
         if existente:
             flash("Já existe um professor com esse e-mail.", "danger")
@@ -59,7 +59,7 @@ def editar(id):
             flash("Preencha todos os campos.", "warning")
             return redirect(request.url)
 
-        # 🔥 Verifica email duplicado com exceção do próprio professor
+        
         existente = Professor.query.filter(Professor.email == email, Professor.id != id).first()
         if existente:
             flash("Este e-mail já está sendo usado por outro professor.", "danger")

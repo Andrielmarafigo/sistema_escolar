@@ -29,7 +29,7 @@ def novo():
             flash("E-mail ou matrícula já cadastrados.", "warning"); return redirect(request.url)
         a = Aluno(nome=nome, email=email, matricula=matricula)
 
-        # upload opcional
+        
         f = request.files.get("documento")
         if f and f.filename:
             filename = f"{matricula}_{f.filename}".replace(" ","_")
